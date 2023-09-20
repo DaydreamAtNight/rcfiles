@@ -1,12 +1,12 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " My own vimrc file
-" Dowload from: https://github.com/DaydreamAtNight/virmc
+" Download from: https://raw.githubusercontent.com/DaydreamAtNight/rcfiles/main/.vimrc
 "
 "
 " Modified from:  https://github.com/amix/vimrc
-"           
 "
 " Sections:
+"    -> Plugins
 "    -> General
 "    -> VIM user interface
 "    -> Colors and Fonts
@@ -20,17 +20,37 @@
 "    -> Spell checking
 "    -> Misc
 "    -> Helper functions
-"    -> Plugins
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin()
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
+Plug 'valloric/youcompleteme'
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/syntastic'
+call plug#end()
 
+if has_key(plugs, 'Syntastic')
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+endif
+
+if has_key(plugs,'youcompleteme')
+    let g:ycm_show_diagnostics_ui = 0
+endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
 set history=500
 
+" set line number
 set nu
 
 " Enable filetype plugins
@@ -45,8 +65,10 @@ au FocusGained,BufEnter * silent! checktime
 " like <leader>w saves the current file
 let mapleader = ","
 
-" Fast saving
+" Fast saving and quitting
 nmap <leader>w :w!<cr>
+nmap <leader>q :q!<cr>
+nmap <leader>wq :wq!<cr>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -172,8 +194,8 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
-set tabstop=4 
-set shiftwidth=4 
+set tabstop=4
+set shiftwidth=4
 
 
 " Linebreak on 500 characters
@@ -283,7 +305,19 @@ set statusline+=%{&ff}] "file format
 set statusline+=%y      "filetype
 set statusline+=%h      "help file flag
 set statusline+=%m      "modified flag
-set statusline+=%r      "read only flag
+set statusline+=%r      "read only fla:PlugStatusg
+
+" Puts in the current git status
+if has_key(plugs, 'vim-fugitive')
+    set statusline+=%{fugitive#statusline()}
+endif
+
+" Puts in the current Syntastic status
+if has_key(plugs, 'syntastic')
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+endif
 
 set statusline+=\ %=                        " align left
 set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
@@ -349,13 +383,13 @@ map <leader>s? z=
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
+" map <leader>q :e ~/buffer<cr>
 
 " Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
+" map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+" map <leader>pp :setlocal paste!<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -411,11 +445,3 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugins
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin()
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-Plug 'valloric/youcompleteme'
-call plug#end()
