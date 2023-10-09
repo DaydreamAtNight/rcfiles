@@ -123,6 +123,18 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# >>> docker initialize >>>
+# useful only for Mac OS Silicon M1,
+# still working but useless for the other platforms
+docker() {
+ if [[ `uname -m` == "arm64" ]] && [[ "$1" == "run" || "$1" == "build" ]]; then
+    /usr/local/bin/docker "$1" --platform linux/amd64 "${@:2}"
+  else
+     /usr/local/bin/docker "$@"
+  fi
+}
+# <<< docker initialize <<<
+
 # >>> user input alias >>>
 alias idle="idle3"
 alias ..="cd .."
@@ -177,7 +189,7 @@ export PATH="/opt/homebrew/opt/pyside@2/bin/:$PATH"
 #export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles
 #export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottlesexport PATH="/opt/homebrew/sbin:$PATH"
 
-# neofetch
-neofetch --ascii "$(fortune -s | cowsay -f happy-whale -W 30)" | lolcat
-# /usr/local/lib/node_modules/cowsay/cows
+# neofetch --ascii "$(fortune -s | cowsay -f happy-whale -W 30)" | lolcat
+# neofetch --ascii "$(fortune -s | cowsay -r -W 30)" | lolcat
+neofetch --ascii "$(fortune -s | cowsay -f `ls /usr/local/lib/node_modules/cowsay/cows | sed 's/\.cow//' | sort -R | head -1`)" | lolcat
 # asciiquarium
