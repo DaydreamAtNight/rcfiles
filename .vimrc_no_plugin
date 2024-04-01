@@ -1,9 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" My own vimrc file
+" My own vimrc file (NO PLUGIN)
 " Download from: https://raw.githubusercontent.com/DaydreamAtNight/rcfiles/main/.vimrc
 "
-"
-" Modified from:  https://github.com/amix/vimrc
 "
 " Sections:
 "    -> Plugins
@@ -26,25 +24,25 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin()
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-Plug 'valloric/youcompleteme'
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/syntastic'
-call plug#end()
+" call plug#begin()
+" Plug 'tpope/vim-surround'
+" Plug 'scrooloose/nerdtree'
+" Plug 'valloric/youcompleteme'
+" Plug 'tpope/vim-fugitive'
+" Plug 'scrooloose/syntastic'
+" call plug#end()
 
-if has_key(plugs, 'Syntastic')
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-endif
+" if has_key(plugs, 'Syntastic')
+"    let g:syntastic_always_populate_loc_list = 1
+"    let g:syntastic_auto_loc_list = 1
+"    let g:syntastic_check_on_open = 1
+"    let g:syntastic_check_on_wq = 0
+" endif
 
-if has_key(plugs,'youcompleteme')
-    let g:ycm_show_diagnostics_ui = 0
-endif
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" if has_key(plugs,'youcompleteme')
+"    let g:ycm_show_diagnostics_ui = 0
+" endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
@@ -219,6 +217,7 @@ set listchars=tab:»■,trail:■,extends:→,precedes:←,nbsp:■
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -307,16 +306,16 @@ set statusline+=%m      "modified flag
 set statusline+=%r      "read only fla:PlugStatusg
 
 " Puts in the current git status
-if has_key(plugs, 'vim-fugitive')
-    set statusline+=%{fugitive#statusline()}
-endif
+"if has_key(plugs, 'vim-fugitive')
+"    set statusline+=%{fugitive#statusline()}
+"endif
 
 " Puts in the current Syntastic status
-if has_key(plugs, 'syntastic')
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-endif
+"if has_key(plugs, 'syntastic')
+"    set statusline+=%#warningmsg#
+"    set statusline+=%{SyntasticStatuslineFlag()}
+"    set statusline+=%*
+"endif
 
 set statusline+=\ %=                        " align left
 set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
@@ -328,8 +327,10 @@ set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Remap VIM 0 to first non-blank character
 map 0 ^
+
 
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
 function! s:moveup_line()
@@ -394,21 +395,28 @@ function! s:movedown_multlines() range
     call setpos('.',save_curpos)
 endfunction
 
-noremap <silent> k :call <SID>moveup_line()<CR>
-noremap <silent> j :call <SID>movedown_line()<CR>
-inoremap <silent> j <ESC>:call <SID>movedown_line()<CR>a
-inoremap <silent> k <ESC>:call <SID>moveup_line()<CR>a
-vnoremap <silent> k :call <SID>moveup_multlines()<CR>gv
-vnoremap <silent> j :call <SID>movedown_multlines()<CR>gv
+noremap <silent> k :call <SID>moveup_line()<CR>
+noremap <silent> j :call <SID>movedown_line()<CR>
+inoremap <silent> k <ESC>:call <SID>moveup_line()<CR>a
+inoremap <silent> j <ESC>:call <SID>movedown_line()<CR>a
+vnoremap <silent> k :call <SID>moveup_multlines()<CR>gv
+vnoremap <silent> j :call <SID>movedown_multlines()<CR>gv
 
-"if has("mac") || has("macunix")
-"  nmap <D-j> <M-j>
-"  nmap <D-k> <M-k>
-"  inoremap <D-j> <M-j>
-"  inoremap <D-k> <M-k>
-"  vmap <D-j> <M-j>
-"  vmap <D-k> <M-k>
-"endif
+"noremap <silent> <M-k> :call <SID>moveup_line()<CR>
+"aoremap <silent> <M-j> :call <SID>movedown_line()<CR>
+"inoremap <silent> <M-k> <ESC>:call <SID>moveup_line()<CR>a
+"inoremap <silent> <M-j> <ESC>:call <SID>movedown_line()<CR>a
+"vnoremap <silent> <M-k> :call <SID>moveup_multlines()<CR>gv
+"vnoremap <silent> <M-j> :call <SID>movedown_multlines()<CR>gv
+
+if has("mac") || has("macunix")
+  nmap <D-j> j
+  nmap <D-k> k
+  inoremap <D-j> j
+  inoremap <D-k> k
+  vmap <D-j> j
+  vmap <D-k> k
+endif
 
 " map jk to <ESC> key
 imap jk <ESC>
