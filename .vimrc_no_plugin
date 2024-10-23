@@ -202,7 +202,7 @@ set tw=500
 set ai "Auto indent
 set cindent "C-indent
 set si "Smart indent
-set wrap "Wrap lines
+set nowrap "Wrap lines
 
 " show invisible characters
 set list
@@ -394,27 +394,27 @@ function! s:movedown_multlines() range
     call setpos('.',save_curpos)
 endfunction
 
-noremap <silent> k :call <SID>moveup_line()<CR>
-noremap <silent> j :call <SID>movedown_line()<CR>
-inoremap <silent> k <ESC>:call <SID>moveup_line()<CR>a
-inoremap <silent> j <ESC>:call <SID>movedown_line()<CR>a
-vnoremap <silent> k :call <SID>moveup_multlines()<CR>gv
-vnoremap <silent> j :call <SID>movedown_multlines()<CR>gv
+noremap <silent> ˚ :call <SID>moveup_line()<CR>
+noremap <silent> ∆ :call <SID>movedown_line()<CR>
+noremap <silent> ˚ <ESC>:call <SID>moveup_line()<CR>a
+inoremap <silent> ∆ <ESC>:call <SID>movedown_line()<CR>a
+vnoremap <silent> ˚ :call <SID>moveup_multlines()<CR>gv
+vnoremap <silent> ∆ :call <SID>movedown_multlines()<CR>gv
 
-"noremap <silent> <M-k> :call <SID>moveup_line()<CR>
-"aoremap <silent> <M-j> :call <SID>movedown_line()<CR>
-"inoremap <silent> <M-k> <ESC>:call <SID>moveup_line()<CR>a
-"inoremap <silent> <M-j> <ESC>:call <SID>movedown_line()<CR>a
-"vnoremap <silent> <M-k> :call <SID>moveup_multlines()<CR>gv
-"vnoremap <silent> <M-j> :call <SID>movedown_multlines()<CR>gv
+"Noremap <silent> <A-k> :call <SID>moveup_line()<CR>
+"Noremap <silent> <A-j> :call <SID>movedown_line()<CR>
+"Inoremap <silent> <A-k> <ESC>:call <SID>moveup_line()<CR>a
+"Inoremap <silent> <A-j> <ESC>:call <SID>movedown_line()<CR>a
+"Vnoremap <silent> <A-k> :call <SID>moveup_multlines()<CR>gv
+"Vnoremap <silent> <A-j> :call <SID>movedown_multlines()<CR>gv
 
 if has("mac") || has("macunix")
-  nmap <D-j> j
-  nmap <D-k> k
-  inoremap <D-j> j
-  inoremap <D-k> k
-  vmap <D-j> j
-  vmap <D-k> k
+  nmap <D-j> <M-j>
+  nmap <D-k> <M-k>
+  inoremap <D-j> <M-j>
+  inoremap <D-k> <M-k>
+  vmap <D-j> <M-j>
+  vmap <D-k> <M-k>
 endif
 
 " map jk to <ESC> key
