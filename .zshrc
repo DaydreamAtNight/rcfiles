@@ -156,6 +156,14 @@ alias b="cd ~/Documents/2_files/self_blog"
 alias lsr="cd ~/Documents"
 alias sudo="sudo -p \"\$(cowsay -f tux \'If you know the password, enter it here. Or just go away:\')\""
 alias cls="clear"
+alias git-switch="~/rcfiles/git-switch.sh"
+alias youtube-dl="yt-dlp"
+alias gmsh="/Applications/Gmsh.app/Contents/MacOS/gmsh"
+# alias ip='ifconfig | grep "inet " | grep -v 127.0.0.1 | awk "{print \$2}"'
+alias ip='ipconfig getifaddr en0'
+
+eval $(thefuck --alias)
+
 
 # trash()  
 # {  
@@ -183,7 +191,6 @@ alias blog='self_blog_submit'
 # >>> paths
 export PATH="/Users/lsongrui/Library/Python/3.9/bin:$PATH"
 
-#export PATH="/Library/Frameworks/R.framework/Resources:$PATH"
 #
 #export PATH="/opt/homebrew/Cellar/qt@5/5.15.2/bin:$PATH"
 #export PATH="/opt/homebrew/Cellar/pyqt@5/5.15.4_2/bin:$PATH"
@@ -204,3 +211,4 @@ export PATH="/Users/lsongrui/Library/Python/3.9/bin:$PATH"
 # neofetch --ascii "$(fortune -s | cowsay -r -W 30)" | lolcat
 neofetch --ascii "$(fortune -s | cowsay -f `ls /opt/homebrew/Cellar/cowsay/3.04_1/share/cows | sed 's/\.cow//' | sort -R | head -1`)" | lolcat
 # asciiquarium
+
